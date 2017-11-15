@@ -14,6 +14,7 @@ namespace Client
             Console.WriteLine("Konflikt.");
 
             Console.WriteLine("Pekic test");
+            Console.WriteLine("Stojan reporting for duty xDDDD");
         }
     }
 }
