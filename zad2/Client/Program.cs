@@ -12,6 +12,8 @@ namespace Client
         {
             Console.WriteLine("Uspesno marko stefan 2 :D");
             Console.WriteLine("Konflikt.");
+
+            Console.WriteLine("Pekic test");
         }
     }
 }
