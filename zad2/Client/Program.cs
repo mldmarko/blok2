@@ -10,7 +10,7 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Uspesno :D");
+            Console.WriteLine("Usspesno Stefan :D");
         }
     }
 }
