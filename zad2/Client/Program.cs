@@ -11,6 +11,7 @@ namespace Client
         static void Main(string[] args)
         {
             Console.WriteLine("Uspesno marko  stefan:D");
+            Console.WriteLine("Konflikt.");
         }
     }
 }
