@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,11 +12,16 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Uspesno marko stefan 2 :D");
-            Console.WriteLine("Konflikt.");
+            ChannelFactory<IServer> factory = new ChannelFactory<IServer>( new NetTcpBinding(),
+                                                                           new EndpointAddress("net.tcp://localhost:4000/IServer"));
+            IServer proxy = factory.CreateChannel();
 
-            Console.WriteLine("Pekic test");
-            Console.WriteLine("Stojan reporting for duty xDDDD");
+            Alarm a = new Alarm() { Message = "ovo je neki alarm", Risk = (char)4, TimeGenerated = DateTime.Now };
+            proxy.SetAlarm(2, 2, 2, a);
+            proxy.SetAlarm(1, 1, 1, a);
+
+            Console.WriteLine("End");
+            Console.ReadKey();
         }
     }
 }
