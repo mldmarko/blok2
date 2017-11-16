@@ -19,7 +19,7 @@ namespace Common
 
         public override string ToString()
         {
-            return $"{TimeGenerated} {Risk} {Message}";
+            return $"{TimeGenerated} {(uint)Risk} {Message}";
         }
     }
 }

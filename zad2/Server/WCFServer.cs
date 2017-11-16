@@ -11,8 +11,7 @@ namespace Server
     {
         public bool SetAlarm(uint blockIndex, uint vectorIndex, uint alarmKey, Alarm alarm)
         {
-            Database.InternModel.SetAlarm(blockIndex, vectorIndex, alarmKey, alarm);
-            return true;
+            return Database.InternModel.SetAlarm(blockIndex, vectorIndex, alarmKey, alarm);
         }
     }
 }
