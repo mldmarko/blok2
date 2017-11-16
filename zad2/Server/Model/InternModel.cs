@@ -72,21 +72,24 @@ namespace Server.Model
 
         public void SaveAllToFile()
         {
-            List<uint> keys;
-            lock (locker)
-            {
-               keys = blocks.Keys.ToList();
-            }
+            List<uint> keys = GetKeys();
 
-            using (StreamWriter fileWritter = new StreamWriter(filePath)) 
+            using (StreamWriter fileWritter = new StreamWriter(filePath))
             {
                 foreach (uint blockKey in keys)
                 {
                     blocks[blockKey].SaveAllToFile(fileWritter);
                 }
             }
-           
+
         }
 
+        private List<uint> GetKeys()
+        {
+            lock (locker)
+            {
+                return blocks.Keys.ToList();
+            }
+        }
     }
 }

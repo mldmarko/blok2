@@ -13,13 +13,13 @@ namespace Common
         [DataMember]
         public string Message { get; set; }
         [DataMember]
-        public char Risk { get; set; }
+        public byte Risk { get; set; }
         [DataMember]
         public DateTime TimeGenerated { get; set; }
 
         public override string ToString()
         {
-            return $"{TimeGenerated} {(uint)Risk} {Message}";
+            return $"{TimeGenerated} {Risk} {Message}";
         }
     }
 }

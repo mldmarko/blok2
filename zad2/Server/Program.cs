@@ -13,12 +13,20 @@ namespace Server
     {
         static void Main(string[] args)
         {
-            NetTcpBinding binding = new NetTcpBinding();
-            string address = "net.tcp://localhost:4000/IServer";
+            NetTcpBinding binding1 = new NetTcpBinding();
+            string address1 = "net.tcp://localhost:4000/IServer";
 
-            ServiceHost host = new ServiceHost(typeof(WCFServer));
-            host.AddServiceEndpoint(typeof(IServer), binding, address);
-            host.Open();
+            ServiceHost host1 = new ServiceHost(typeof(WinAuthServer));
+            host1.AddServiceEndpoint(typeof(IServer), binding1, address1);
+            host1.Open();
+
+
+            NetTcpBinding binding2 = new NetTcpBinding();
+            string address2 = "net.tcp://localhost:4000/IServer";
+
+            ServiceHost host2 = new ServiceHost(typeof(CertificateServer));
+            host2.AddServiceEndpoint(typeof(IServer), binding2, address2);
+            host2.Open();
 
             Console.WriteLine("Server started.");
 
@@ -27,7 +35,8 @@ namespace Server
 
 
             Console.ReadKey(true);
-            host.Close();
+            host1.Close();
+            host2.Close();
         }
 
         static void Read()

@@ -51,15 +51,19 @@ namespace Server.Model
 
         public void SaveAllToFile(StreamWriter fileWritter)
         {
-            List<uint> keys;
-            lock (locker)
-            {
-                keys = vectors.Keys.ToList();
-            }
+            List<uint> keys = GetKeys();
 
             foreach (uint vectorKey in keys)
             {
                 vectors[vectorKey].SaveAllToFile(fileWritter);
+            }
+        }
+
+        private List<uint> GetKeys()
+        {
+            lock (locker)
+            {
+                return vectors.Keys.ToList();
             }
         }
 
