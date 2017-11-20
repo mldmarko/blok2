@@ -18,7 +18,7 @@ namespace SecurityManager
     {
 
         private static EventLog customLog = null;
-        const string SourceName = "SecurityManager.Audit";
+        const string SourceName = "BLOK2 Projekat - SecurityManager.Audit";
         const string LogName = "BLOK2 Projekat - Custom Log";
 
         static Audit()

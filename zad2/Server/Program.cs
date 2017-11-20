@@ -22,7 +22,7 @@ namespace Server
 
 
             NetTcpBinding binding2 = new NetTcpBinding();
-            string address2 = "net.tcp://localhost:4000/IServer";
+            string address2 = "net.tcp://localhost:4001/IServer";
 
             ServiceHost host2 = new ServiceHost(typeof(CertificateServer));
             host2.AddServiceEndpoint(typeof(IServer), binding2, address2);

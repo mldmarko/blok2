@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    class CertificateServer : IServer
+    public class CertificateServer : IServer
     {
         public bool SetAlarm(uint blockIndex, uint vectorIndex, uint alarmKey, Alarm alarm)
         {
