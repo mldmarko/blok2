@@ -12,7 +12,6 @@ namespace SecurityManager
     {
         private WindowsIdentity identity = null;
         private Dictionary<string, string[]> roles = new Dictionary<string, string[]>();
-        private List<string> rls = new List<string>();
 
         public CustomPrincipal(WindowsIdentity winIdentity)
         {
@@ -27,11 +26,8 @@ namespace SecurityManager
                 if (!roles.ContainsKey(groupName))
                 {
                     roles.Add(groupName, RolesConfig.GetPermissions(groupName));
-                    rls.Add(groupName);
                 }
             }
-
-            //WorkWithXML.Write(rls);
         }
 
         public IIdentity Identity

@@ -17,23 +17,17 @@ namespace Client
         {
             if (Meni() == AuthenticationType.Windows)
             {
-                ChannelFactory<IServer> factory = new ChannelFactory<IServer>(new NetTcpBinding(),
-                                                                          new EndpointAddress("net.tcp://localhost:4000/IServer"));
-                IServer proxy = factory.CreateChannel();
-
                 Alarm a = new Alarm() { Message = "ovo je neki alarm", Risk = 4, TimeGenerated = DateTime.Now };
 
                 var clientIndentity = WindowsIdentity.GetCurrent();
                 Console.WriteLine(String.Format("Authentificated User: {0}",clientIndentity.Name.ToString()));
 
-                try
+                NetTcpBinding binding = new NetTcpBinding();
+                string address = "net.tcp://localhost:4000/IServer";
+
+                using (WinAuthClient proxy = new WinAuthClient(binding, new EndpointAddress(new Uri(address))))
                 {
                     proxy.SetAlarm(2, 2, 2, a);
-                    Console.WriteLine("SetAlarm() successfully executed for user {0}.", clientIndentity.Name.ToString());
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error while trying to SetAlarm(), {0}.", e.Message);
                 }
             }
             else
