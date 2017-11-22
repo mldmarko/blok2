@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,8 +22,19 @@ namespace Client
                 IServer proxy = factory.CreateChannel();
 
                 Alarm a = new Alarm() { Message = "ovo je neki alarm", Risk = 4, TimeGenerated = DateTime.Now };
-                proxy.SetAlarm(2, 2, 2, a);
-                proxy.SetAlarm(1, 1, 1, a);
+
+                var clientIndentity = WindowsIdentity.GetCurrent();
+                Console.WriteLine(String.Format("Authentificated User: {0}",clientIndentity.Name.ToString()));
+
+                try
+                {
+                    proxy.SetAlarm(2, 2, 2, a);
+                    Console.WriteLine("SetAlarm() successfully executed for user {0}.", clientIndentity.Name.ToString());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error while trying to SetAlarm(), {0}.", e.Message);
+                }
             }
             else
             {
