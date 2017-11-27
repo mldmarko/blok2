@@ -1,7 +1,10 @@
 ﻿using Common;
+using SecurityManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
 using System.ServiceModel;
 using System.Text;
@@ -15,6 +18,20 @@ namespace Client
     {
         static void Main(string[] args)
         {
+            //Alarm a1 = new Alarm() { Message = "ovo je neki alarm", Risk = 4, TimeGenerated = DateTime.Now };
+            //Message m1 = new Message(2, 2, 2, a1);
+            //byte[] e = DigitalSigneture.SignMessage(m1, new object());
+            //bool d = DigitalSigneture.VerifySignature(m1, e, new object());
+            //Console.WriteLine(d);
+
+            //m1.BlockIndex = 5;
+            //d = DigitalSigneture.VerifySignature(m1, e, new object());
+            //Console.WriteLine(d);
+
+            //return;
+
+            string srvCertCN = "testService";
+
             if (Meni() == AuthenticationType.Windows)
             {
                 Alarm a = new Alarm() { Message = "ovo je neki alarm", Risk = 4, TimeGenerated = DateTime.Now };
@@ -27,13 +44,32 @@ namespace Client
 
                 using (WinAuthClient proxy = new WinAuthClient(binding, new EndpointAddress(new Uri(address))))
                 {
-                    proxy.SetAlarm(2, 2, 2, a);
+                    object privateKey = new object(); //!!!!!!!!!!!!!!!!!!!!!
+                    Message m = new Message(2, 2, 2, a);
+
+
+                    proxy.SetAlarm(m, DigitalSigneture.SignMessage(m, privateKey));
                 }
             }
             else
             {
-                //certificate auth
-                //kada se zavrse obe, onda se moze videti koji kod je zajednicki  a koji ne, i podeliti u metode
+                Alarm a = new Alarm() { Message = "ovo je neki alarm", Risk = 4, TimeGenerated = DateTime.Now };
+                NetTcpBinding binding = new NetTcpBinding();
+                binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
+
+                /// Use CertManager class to obtain the certificate based on the "srvCertCN" representing the expected service identity.
+                X509Certificate2 srvCert = CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.CurrentUser, srvCertCN);
+                EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:4001/IServer"),
+                                          new X509CertificateEndpointIdentity(srvCert));
+
+                using (CertAuthClient proxy = new CertAuthClient(binding, address))
+                {
+                    object privateKey = new object(); //!!!!!!!!!!!!!!!!!!!!!
+                    Message m = new Message(2, 2, 2, a);
+                    proxy.SetAlarm(m, DigitalSigneture.SignMessage(m, privateKey));
+                    Console.WriteLine("TestCommunication() finished. Press <enter> to continue ...");
+                    Console.ReadLine();
+                }
             }
 
             Console.Write("Press any key to exit: ");

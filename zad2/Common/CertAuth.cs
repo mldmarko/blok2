@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Common
 {
     [ServiceContract]
-    public interface IServer
+    public interface CertAuth
     {
         [OperationContract]
-        bool SetAlarm(Message message, byte[] signature);
+        void TestCommunication();
     }
 }

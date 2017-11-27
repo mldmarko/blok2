@@ -1,7 +1,9 @@
 ﻿using Common;
+using SecurityManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
 using System.ServiceModel;
 using System.Text;
@@ -19,8 +21,7 @@ namespace Client
             factory = this.CreateChannel();
         }
 
-
-        public bool SetAlarm(uint blockIndex, uint vectorIndex, uint alarmKey, Alarm alarm)
+        public bool SetAlarm(Message message, byte[] signature)
         {
             bool allowed = false;
 
@@ -28,7 +29,7 @@ namespace Client
 
             try
             {
-                factory.SetAlarm(blockIndex, vectorIndex, alarmKey, alarm);
+                factory.SetAlarm(message, signature);
                 Console.WriteLine("SetAlarm() successfully executed for user {0}.", clientIndentity.Name.ToString());
             }
             catch (Exception e)
@@ -38,5 +39,7 @@ namespace Client
 
             return allowed;
         }
+
+       
     }
 }
