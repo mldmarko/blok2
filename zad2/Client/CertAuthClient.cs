@@ -11,15 +11,16 @@ using System.Threading.Tasks;
 
 namespace Client
 {
-    public class CertAuthClient : ChannelFactory<IServer>, IServer, IDisposable
+    public class CertAuthClient : ChannelFactory<CertAuth>, CertAuth, IDisposable
     {
-        IServer factory;
+        CertAuth factory;
 
         public CertAuthClient(NetTcpBinding binding, EndpointAddress address)
             : base(binding, address)
         {
             /// cltCertCN.SubjectName should be set to the client's username. .NET WindowsIdentity class provides information about Windows user running the given process
-            string cltCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name);
+            //string cltCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name);
+            string cltCertCN = "testClient";
 
             this.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.Custom;
             this.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = new ClientCertValidator();
@@ -59,6 +60,11 @@ namespace Client
 
             this.Close();
         }
+
+        //public void printSmth()
+        //{
+        //    Console.WriteLine("Does this shit work!!!\n");
+        //}
     }
 }
 

@@ -18,19 +18,19 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            //Alarm a1 = new Alarm() { Message = "ovo je neki alarm", Risk = 4, TimeGenerated = DateTime.Now };
-            //Message m1 = new Message(2, 2, 2, a1);
-            //byte[] e = DigitalSigneture.SignMessage(m1, new object());
-            //bool d = DigitalSigneture.VerifySignature(m1, e, new object());
-            //Console.WriteLine(d);
+            Alarm a1 = new Alarm() { Message = "ovo je neki alarm", Risk = 4, TimeGenerated = DateTime.Now };
+            Message m1 = new Message(2, 2, 2, a1);
+            byte[] e = DigitalSigneture.SignMessage(m1, new object());
+            bool d = DigitalSigneture.VerifySignature(m1, e, new object());
+            Console.WriteLine(d);
 
-            //m1.BlockIndex = 5;
-            //d = DigitalSigneture.VerifySignature(m1, e, new object());
-            //Console.WriteLine(d);
+            m1.BlockIndex = 5;
+            d = DigitalSigneture.VerifySignature(m1, e, new object());
+            Console.WriteLine(d);
 
-            //return;
+            return;
 
-            string srvCertCN = "testService";
+            string srvCertCN = "testClient";
 
             if (Meni() == AuthenticationType.Windows)
             {
@@ -59,16 +59,17 @@ namespace Client
 
                 /// Use CertManager class to obtain the certificate based on the "srvCertCN" representing the expected service identity.
                 X509Certificate2 srvCert = CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.CurrentUser, srvCertCN);
-                EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:4001/IServer"),
+                EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:4001/CertAuth"),
                                           new X509CertificateEndpointIdentity(srvCert));
-
+                Console.WriteLine("Found it!!!");
                 using (CertAuthClient proxy = new CertAuthClient(binding, address))
                 {
                     object privateKey = new object(); //!!!!!!!!!!!!!!!!!!!!!
                     Message m = new Message(2, 2, 2, a);
                     proxy.SetAlarm(m, DigitalSigneture.SignMessage(m, privateKey));
-                    Console.WriteLine("TestCommunication() finished. Press <enter> to continue ...");
-                    Console.ReadLine();
+                    //proxy.printSmth();
+                    //Console.WriteLine("TestCommunication() finished. Press <enter> to continue ...");
+                    //Console.ReadLine();
                 }
             }
 

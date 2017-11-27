@@ -14,25 +14,31 @@ namespace SecurityManager
     {
         public static byte[] SignMessage(Message message, object privateKey)
         {
-            byte[] hash = GetHash(message);
-
-            return RSA.Crypt(hash, 11, 17);
+            
+            RSA.f(GetHash(message));
+            //return RSA.Crypt(hash, 11, 17);
+            return new byte[1];
         }
 
         public static bool VerifySignature(Message message, byte[] signature, object publicKey)
         {
-            byte[] hash1 = GetHash(message);
+            byte[] hash1 = new byte[1];
+            //byte[] hash1 = GetHash(message);
             byte[] hash2 = RSA.Decrypt(signature, 11, 17);
 
             return CompareHash(hash1, hash2);
         }
     
-        private static byte[] GetHash(Message message)
+        private static string GetHash(Message message)
         {
-            SHA1Managed sha1 = new SHA1Managed();
-            byte[] data = ObjectToByteArray(message);
-            byte[] hash = sha1.ComputeHash(data);
-            return hash;
+            //SHA1Managed sha1 = new SHA1Managed();
+            //byte[] data = ObjectToByteArray(message);
+            //byte[] hash = sha1.ComputeHash(data);
+            string retVal = string.Empty;
+
+            retVal += message.VectorIndex * 2 + message.BlockIndex * 3;
+
+            return retVal;
         }
         private static bool CompareHash(byte[] hash1, byte[] hash2)
         {

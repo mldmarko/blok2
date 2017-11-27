@@ -8,13 +8,19 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    class CertAuthServer : IServer
+    class CertAuthServer : CertAuth
     {
+        public void printSmth()
+        {
+            Console.WriteLine("SmTH");
+        }
+
         public bool SetAlarm(Message message, byte[] signature)
         {
             Audit.AuthorizationSuccess("Test user", "SetAlarm method");
 
             return Database.InternModel.SetAlarm(message.BlockIndex, message.VectorIndex, message.AlarmKey, message.Alarm);
+            
         }
     }
 }

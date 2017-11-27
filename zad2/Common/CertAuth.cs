@@ -11,6 +11,9 @@ namespace Common
     public interface CertAuth
     {
         [OperationContract]
-        void TestCommunication();
+        bool SetAlarm(Message message, byte[] signature);
+
+        //[OperationContract]
+       // void printSmth();
     }
 }

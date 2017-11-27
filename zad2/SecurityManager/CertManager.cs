@@ -29,6 +29,7 @@ namespace SecurityManager
             {
                 if (c.SubjectName.Name.Equals(string.Format("CN={0}", subjectName)))
                 {
+                    Console.WriteLine("Found it!!! {0}", subjectName);
                     return c;
                 }
             }
