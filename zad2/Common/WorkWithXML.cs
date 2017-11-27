@@ -14,7 +14,7 @@ namespace Common
         {
             XmlDocument xd = new XmlDocument();
 
-            xd.Load("document.xml");
+            xd.Load("..//..//document.xml");
             List<string> prm = new List<string>();
             XmlNode nodelist = xd.SelectSingleNode("/Roles");
             XmlNodeList childnodelist = nodelist.ChildNodes;
