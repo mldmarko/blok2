@@ -7,13 +7,13 @@
     <Perms></Perms>
   </Everyone>
   <Local_account_and_member_of_Administrators_group>
-    <Perms>SetAlarm</Perms>
+    <Perms></Perms>
   </Local_account_and_member_of_Administrators_group>
   <HelpLibraryUpdaters>
     <Perms></Perms>
   </HelpLibraryUpdaters>
   <Administrators>
-    <Perms>SetAlarm</Perms>
+    <Perms></Perms>
   </Administrators>
   <Distributed_COM_Users>
     <Perms></Perms>
@@ -28,21 +28,24 @@
     <Perms></Perms>
   </INTERACTIVE>
   <CONSOLE_LOGON>
-    <Perms>SetAlarm</Perms>
+    <Perms></Perms>
   </CONSOLE_LOGON>
   <Authenticated_Users>
-    <Perms>SetAlarm</Perms>
+    <Perms></Perms>
   </Authenticated_Users>
   <This_Organization>
     <Perms></Perms>
   </This_Organization>
   <Local_account>
-    <Perms>SetAlarm</Perms>
+    <Perms></Perms>
   </Local_account>
   <LOCAL>
-    <Perms>SetAlarm</Perms>
+    <Perms></Perms>
   </LOCAL>
   <NTLM_Authentication>
-    <Perms>SetAlarm</Perms>
+    <Perms></Perms>
   </NTLM_Authentication>
+  <TestGroup>
+    <Perms>SetAlarm</Perms>
+  </TestGroup>
 </Roles>

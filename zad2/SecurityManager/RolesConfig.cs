@@ -36,6 +36,7 @@ namespace SecurityManager
                 case "Local_account": return WorkWithXML.ReadXml(role);
                 case "LOCAL": return WorkWithXML.ReadXml(role);
                 case "NTLM_Authentication": return WorkWithXML.ReadXml(role);
+                case "TestGroup": return WorkWithXML.ReadXml(role);
                 default: return Empty;
             }
         }
