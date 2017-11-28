@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,13 +23,18 @@ namespace Server
                 d = BigInteger.Parse(sr.ReadLine());
             }
 
-            bool flag = DigitalSignature.VerifySignature(message, signature, n, d);
-            Console.WriteLine(flag);
-
-            Audit.AuthorizationSuccess("Test user", "SetAlarm method");
-
-            return Database.InternModel.SetAlarm(message.BlockIndex, message.VectorIndex, message.AlarmKey, message.Alarm);
+            bool signatureVerified = DigitalSignature.VerifySignature(message, signature, n, d);
+           
+            if(signatureVerified)
+            {
+                Audit.AuthorizationSuccess(Formatter.ParseName(WindowsIdentity.GetCurrent().Name), "SetAlarm method");
+            }
+            else
+            {
+                Audit.AuthorizationFailed(Formatter.ParseName(WindowsIdentity.GetCurrent().Name), "SetAlarm method", "Signature verification failed");
+            }
             
+            return Database.InternModel.SetAlarm(message.BlockIndex, message.VectorIndex, message.AlarmKey, message.Alarm);  
         }
     }
 }

@@ -32,18 +32,6 @@ namespace Client
             Console.WriteLine("Keys generated, press any key to continue.");
             Console.ReadKey(true);
 
-            //Alarm a1 = new Alarm() { Message = "ovo je neki alarm", Risk = 4, TimeGenerated = DateTime.Now };
-            //Message m1 = new Message(2, 2, 2, a1);
-            //BigInteger signature = DigitalSigneture.SignMessage(m1, n, e);
-            //bool flag = DigitalSigneture.VerifySignature(m1, signature, n, d);
-            //Console.WriteLine(flag);
-
-            ////m1.BlockIndex = 5;
-            //flag = DigitalSigneture.VerifySignature(m1, signature, n, d + 1);
-            //Console.WriteLine(flag);
-
-            //return;
-
             string srvCertCN = "testClient";
 
             if (Meni() == AuthenticationType.Windows)
@@ -53,6 +41,7 @@ namespace Client
 
                 var clientIndentity = WindowsIdentity.GetCurrent();
                 Console.WriteLine(String.Format("Authentificated User: {0}", clientIndentity.Name.ToString()));
+                Audit.AuthenticationSuccess(clientIndentity.Name.ToString());
 
                 NetTcpBinding binding = new NetTcpBinding();
                 string address = "net.tcp://localhost:4000/IServer";
@@ -71,19 +60,32 @@ namespace Client
                 NetTcpBinding binding = new NetTcpBinding();
                 binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
-                /// Use CertManager class to obtain the certificate based on the "srvCertCN" representing the expected service identity.
                 X509Certificate2 srvCert = CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.CurrentUser, srvCertCN);
-                EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:4001/CertAuth"),
+                try
+                {
+                    if (srvCert != null)
+                    {
+                        Audit.AuthenticationSuccess(WindowsIdentity.GetCurrent().ToString());
+                    }
+                    else
+                    {
+                        Audit.AuthenticationFailed(WindowsIdentity.GetCurrent().ToString());
+                        throw new Exception("Certificate not found\n");
+                    }
+                    
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:4001/IServer"),
                                           new X509CertificateEndpointIdentity(srvCert));
-                Console.WriteLine("Found it!!!");
+               
                 using (CertAuthClient proxy = new CertAuthClient(binding, address))
                 {
-                    object privateKey = new object(); //!!!!!!!!!!!!!!!!!!!!!
+                    object privateKey = new object();
                     Message m = new Message(2, 2, 2, a);
-                    proxy.SetAlarm(m, DigitalSignature.SignMessage(m, n, e));
-                    //proxy.printSmth();
-                    //Console.WriteLine("TestCommunication() finished. Press <enter> to continue ...");
-                    //Console.ReadLine();
+                    proxy.SetAlarm(m, DigitalSignature.SignMessage(m, n, e));  
                 }
             }
 

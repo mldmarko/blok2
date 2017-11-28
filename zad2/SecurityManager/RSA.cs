@@ -13,7 +13,7 @@ namespace SecurityManager
 
             n = BigInteger.Multiply(p, q);
 
-            e = BigInteger.Parse("65537"); //https://crypto.stackexchange.com/questions/13166/method-to-calculating-e-in-rsa
+            e = BigInteger.Parse("65537"); 
 
             BigInteger phi = (p - 1) * (q - 1);
 
@@ -41,6 +41,30 @@ namespace SecurityManager
             return plainText.ToString();
         }
 
+        private static BigInteger ModInverse(BigInteger a, BigInteger n)
+        {
+            BigInteger i = n, v = 0, d = 1;
+
+            while (a > 0)
+            {
+                BigInteger t = i / a, x = a;
+                a = i % x;
+                i = x;
+                x = d;
+                d = v - t * x;
+                v = x;
+            }
+
+            v %= n;
+            if (v < 0)
+            {
+                v = (v + n) % n;
+            }
+
+            return v;
+        }
+
+        #region primes
         private static string[] Primes =  { "961748941",
                                          "961749043",
                                          "961749167",
@@ -139,28 +163,6 @@ namespace SecurityManager
                                          "961765373",
                                          "961765537",
                                          "961765757"};
-
-        private static BigInteger ModInverse(BigInteger a, BigInteger n)
-        {
-            BigInteger i = n, v = 0, d = 1;
-
-            while (a > 0)
-            {
-                BigInteger t = i / a, x = a;
-                a = i % x;
-                i = x;
-                x = d;
-                d = v - t * x;
-                v = x;
-            }
-
-            v %= n;
-            if (v < 0)
-            {
-                v = (v + n) % n;
-            }
-
-            return v;
-        }
+        #endregion 
     }
 }

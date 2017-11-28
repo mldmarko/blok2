@@ -49,7 +49,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AlarmMessagesFile.resx</DependentUpon>
     </Compile>
-    <Compile Include="CertAuth.cs" />
     <Compile Include="IServer.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageTypes.cs" />

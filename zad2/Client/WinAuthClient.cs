@@ -31,16 +31,14 @@ namespace Client
             try
             {
                 factory.SetAlarm(message, signature);
-                Console.WriteLine("SetAlarm() successfully executed for user {0}.", clientIndentity.Name.ToString());
+                Console.WriteLine("Alarm successfully set for user {0}.", clientIndentity.Name.ToString());
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error while trying to SetAlarm(), {0}.", e.Message);
+                Console.WriteLine("Error while trying to set Alarm, {0}.", e.Message);
             }
 
             return allowed;
-        }
-
-       
+        } 
     }
 }
