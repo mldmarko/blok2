@@ -12,15 +12,40 @@ namespace Common
     public class Alarm
     {
         [DataMember]
-        public string Message { get; set; }
-        [DataMember]
         public byte Risk { get; set; }
         [DataMember]
         public DateTime TimeGenerated { get; set; }
+        [DataMember]
+        private string Message;
 
         public override string ToString()
         {
             return $"{TimeGenerated} {Risk} {Message}";
+        }
+
+        public string GetMessage()
+        {
+            return Message;
+        }
+
+        public void SetMessageAlarmGreen()
+        {
+            Message = MessageTypes.CodeGreen;
+        }
+
+        public void SetMessageAlarmYellow()
+        {
+            Message = MessageTypes.CodeYellow;
+        }
+
+        public void SetMessageAlarmRed()
+        {
+            Message = MessageTypes.CodeRed;
+        }
+
+        public void SetMessageAlarmBlack()
+        {
+            Message = MessageTypes.CodeBlack;
         }
     }
 }

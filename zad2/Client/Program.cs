@@ -47,7 +47,8 @@ namespace Client
 
             if (Meni() == AuthenticationType.Windows)
             {
-                Alarm a = new Alarm() { Message = "ovo je neki alarm", Risk = 4, TimeGenerated = DateTime.Now };
+                Alarm a = new Alarm() {Risk = 4, TimeGenerated = DateTime.Now };
+                a.SetMessageAlarmBlack();
 
                 var clientIndentity = WindowsIdentity.GetCurrent();
                 Console.WriteLine(String.Format("Authentificated User: {0}", clientIndentity.Name.ToString()));
@@ -63,7 +64,9 @@ namespace Client
             }
             else
             {
-                Alarm a = new Alarm() { Message = "ovo je neki alarm", Risk = 4, TimeGenerated = DateTime.Now };
+                Alarm a = new Alarm() {Risk = 4, TimeGenerated = DateTime.Now };
+                a.SetMessageAlarmBlack();
+
                 NetTcpBinding binding = new NetTcpBinding();
                 binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
