@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Common
     public interface CertAuth
     {
         [OperationContract]
-        bool SetAlarm(Message message, byte[] signature);
+        bool SetAlarm(Message message, BigInteger signature);
 
         //[OperationContract]
        // void printSmth();

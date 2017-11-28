@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
@@ -12,61 +13,26 @@ namespace SecurityManager
 {
     public class DigitalSigneture
     {
-        public static byte[] SignMessage(Message message, object privateKey)
+        public static BigInteger SignMessage(Message message, BigInteger n, BigInteger e)
         {
-            
-            RSA.f(GetHash(message));
-            //return RSA.Crypt(hash, 11, 17);
-            return new byte[1];
+            return RSA.Crypt(GetHash(message), e, n);
         }
 
-        public static bool VerifySignature(Message message, byte[] signature, object publicKey)
+        public static bool VerifySignature(Message message, BigInteger signature, BigInteger n, BigInteger d)
         {
-            byte[] hash1 = new byte[1];
-            //byte[] hash1 = GetHash(message);
-            byte[] hash2 = RSA.Decrypt(signature, 11, 17);
+           
+           string hash1 = GetHash(message);
+           string hash2 = RSA.Decrypt(signature, d, n);
 
-            return CompareHash(hash1, hash2);
+            return (hash1 == hash2);
         }
     
         private static string GetHash(Message message)
         {
-            //SHA1Managed sha1 = new SHA1Managed();
-            //byte[] data = ObjectToByteArray(message);
-            //byte[] hash = sha1.ComputeHash(data);
             string retVal = string.Empty;
-
-            retVal += message.VectorIndex * 2 + message.BlockIndex * 3;
+            retVal += (message.VectorIndex * 2 + message.BlockIndex * 3);
 
             return retVal;
-        }
-        private static bool CompareHash(byte[] hash1, byte[] hash2)
-        {
-            if(hash1.Length != hash2.Length)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < hash1.Length; i++)
-            {
-                if(hash1[i] != hash2[i])
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-        private static byte[] ObjectToByteArray(object obj)
-        {
-            if (obj == null)
-                return null;
-            BinaryFormatter bf = new BinaryFormatter();
-            using (MemoryStream ms = new MemoryStream())
-            {
-                bf.Serialize(ms, obj);
-                return ms.ToArray();
-            }
-        }
+        }     
     }
 }

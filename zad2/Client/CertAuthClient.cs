@@ -3,6 +3,7 @@ using SecurityManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
 using System.ServiceModel;
@@ -32,7 +33,7 @@ namespace Client
             factory = this.CreateChannel();
         }
 
-        public bool SetAlarm(Message message, byte[] signature)
+        public bool SetAlarm(Message message, BigInteger signature)
         {
             bool allowed = false;
 

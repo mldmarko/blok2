@@ -3,6 +3,7 @@ using SecurityManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace Server
             Console.WriteLine("SmTH");
         }
 
-        public bool SetAlarm(Message message, byte[] signature)
+        public bool SetAlarm(Message message, BigInteger signature)
         {
             Audit.AuthorizationSuccess("Test user", "SetAlarm method");
 
