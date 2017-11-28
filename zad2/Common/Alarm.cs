@@ -47,5 +47,10 @@ namespace Common
         {
             Message = MessageTypes.CodeBlack;
         }
+
+        public int GetMessageLength()
+        {
+            return Message.Length;
+        }
     }
 }

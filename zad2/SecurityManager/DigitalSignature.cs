@@ -34,7 +34,7 @@ namespace SecurityManager
             retVal += message.BlockIndex * 3;
             retVal += message.AlarmKey * 4;
             retVal += message.Alarm.Risk;
-            retVal += message.Alarm.Message.Length;
+            retVal += message.Alarm.GetMessageLength();
 
             return retVal;
         }     
