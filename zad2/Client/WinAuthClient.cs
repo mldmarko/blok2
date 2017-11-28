@@ -36,6 +36,7 @@ namespace Client
             catch (Exception e)
             {
                 Console.WriteLine("Error while trying to set Alarm, {0}.", e.Message);
+                Audit.AuthorizationFailed(Formatter.ParseName(WindowsIdentity.GetCurrent().Name), "SetAlarm method", "Signature verification failed");
             }
 
             return allowed;

@@ -61,7 +61,7 @@ namespace SecurityManager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Authenticatnion failed. User {0} failed to authenticate..
+        ///   Looks up a localized string similar to Authentication failed. User {0} failed to authenticate..
         /// </summary>
         internal static string UserAuthenticationFailed {
             get {

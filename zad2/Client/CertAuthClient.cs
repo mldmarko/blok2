@@ -19,7 +19,7 @@ namespace Client
         public CertAuthClient(NetTcpBinding binding, EndpointAddress address)
             : base(binding, address)
         {
-            string cltCertCN = "testClient";
+            string cltCertCN = "client";
             this.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.Custom;
             this.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = new ClientCertValidator();
             this.Credentials.ServiceCertificate.Authentication.RevocationMode = X509RevocationMode.NoCheck;
@@ -37,11 +37,13 @@ namespace Client
             try
             {
                 factory.SetAlarm(message, signature);
+
                 Console.WriteLine("Alarm successfully set for user {0}.", clientIndentity.Name.ToString());
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error while trying to set Alarm, {0}.", e.Message);
+                Audit.AuthorizationFailed(Formatter.ParseName(WindowsIdentity.GetCurrent().Name), "SetAlarm method", "Signature verification failed");
             }
 
             return allowed;

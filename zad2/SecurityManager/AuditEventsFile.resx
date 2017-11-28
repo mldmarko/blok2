@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="UserAuthenticationFailed" xml:space="preserve">
-    <value>Authenticatnion failed. User {0} failed to authenticate.</value>
+    <value>Authentication failed. User {0} failed to authenticate.</value>
   </data>
   <data name="UserAuthenticationSuccess" xml:space="preserve">
     <value>User {0} successfully authenticated.</value>

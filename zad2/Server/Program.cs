@@ -19,7 +19,7 @@ namespace Server
     {
         static void Main(string[] args)
         { 
-            string srvCertCN = "testClient";
+            string srvCertCN = "client";
 
             NetTcpBinding binding1 = new NetTcpBinding();
             string address1 = "net.tcp://localhost:4000/IServer";

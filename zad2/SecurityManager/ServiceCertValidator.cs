@@ -19,7 +19,7 @@ namespace SecurityManager
         /// <param name="certificate"> certificate to be validate </param>
         public override void Validate(X509Certificate2 certificate)
         {
-            X509Certificate2 srvCert = CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.CurrentUser, "testService");
+            X509Certificate2 srvCert = CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.CurrentUser, "service");
 
             if (!certificate.Issuer.Equals(srvCert.Issuer))
             {

@@ -32,7 +32,7 @@ namespace Client
             Console.WriteLine("Keys generated, press any key to continue.");
             Console.ReadKey(true);
 
-            string srvCertCN = "testClient";
+            string srvCertCN = "client";
 
             if (Meni() == AuthenticationType.Windows)
             {
@@ -71,7 +71,7 @@ namespace Client
                     {
                         Audit.AuthenticationFailed(WindowsIdentity.GetCurrent().ToString());
                         throw new Exception("Certificate not found\n");
-                    }
+                    } 
                     
                 }
                 catch(Exception ex)
