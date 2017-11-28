@@ -22,7 +22,7 @@ namespace Server
                 d = BigInteger.Parse(sr.ReadLine());
             }
 
-            bool flag = DigitalSigneture.VerifySignature(message, signature, n, d);
+            bool flag = DigitalSignature.VerifySignature(message, signature, n, d);
             Console.WriteLine(flag);
 
             Audit.AuthorizationSuccess("Test user", "SetAlarm method");

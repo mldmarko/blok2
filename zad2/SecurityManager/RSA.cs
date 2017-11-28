@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Numerics;
 
 namespace SecurityManager
@@ -11,13 +7,13 @@ namespace SecurityManager
     {
         public static void GenerateKeys(out BigInteger n, out BigInteger e, out BigInteger d)
         {
-            BigInteger p = BigInteger.Parse("58EA1F072BF7A8A8216B73A037EB807162498F6DE13502FE4D908E9D12E5FEFC05D4E76A493CD909DC9C6C6CF9066EA194F24D218DB253C8B2A53D2870DD9B97", System.Globalization.NumberStyles.HexNumber);
+            BigInteger p = BigInteger.Parse(Primes[DateTime.Now.Ticks % Primes.Length]);
 
-            BigInteger q = BigInteger.Parse("1E523F5992C10A2D559217299E044951CF7DE8A9857E53EE7DD254B517547333C6D964D7306CB66239F1F6DFF0A415EF52487BB1B9334AB68A7F0876649CE45B", System.Globalization.NumberStyles.HexNumber);
+            BigInteger q = BigInteger.Parse(Primes[DateTime.Now.Ticks % Primes.Length]);
 
             n = BigInteger.Multiply(p, q);
 
-            e = BigInteger.Parse("10001", System.Globalization.NumberStyles.HexNumber);
+            e = BigInteger.Parse("65537"); //https://crypto.stackexchange.com/questions/13166/method-to-calculating-e-in-rsa
 
             BigInteger phi = (p - 1) * (q - 1);
 
@@ -45,8 +41,106 @@ namespace SecurityManager
             return plainText.ToString();
         }
 
+        private static string[] Primes =  { "961748941",
+                                         "961749043",
+                                         "961749167",
+                                         "961749307",
+                                         "961749433",
+                                         "961749643",
+                                         "961749793",
+                                         "961750043",
+                                         "961750211",
+                                         "961750411",
+                                         "961750633",
+                                         "961750847",
+                                         "961751059",
+                                         "961751207",
+                                         "961751369",
+                                         "961751551",
+                                         "961751783",
+                                         "961751963",
+                                         "961752191",
+                                         "961752313",
+                                         "961752551",
+                                         "961752719",
+                                         "961752937",
+                                         "961753123",
+                                         "961753253",
+                                         "961753549",
+                                         "961753697",
+                                         "961753873",
+                                         "961754063",
+                                         "961754191",
+                                         "961754359",
+                                         "961754489",
+                                         "961754687",
+                                         "961754831",
+                                         "961755073",
+                                         "961755299",
+                                         "961755517",
+                                         "961755607",
+                                         "961755827",
+                                         "961756069",
+                                         "961756223",
+                                         "961756381",
+                                         "961756591",
+                                         "961756787",
+                                         "961756979",
+                                         "961757081",
+                                         "961757227",
+                                         "961757417",
+                                         "961757521",
+                                         "961757639",
+                                         "961757831",
+                                         "961758089",
+                                         "961758209",
+                                         "961758389",
+                                         "961758533",
+                                         "961758671",
+                                         "961758887",
+                                         "961759109",
+                                         "961759313",
+                                         "961759481",
+                                         "961759577",
+                                         "961759739",
+                                         "961759933",
+                                         "961760011",
+                                         "961760119",
+                                         "961760323",
+                                         "961760509",
+                                         "961760693",
+                                         "961760819",
+                                         "961761011",
+                                         "961761107",
+                                         "961761217",
+                                         "961761347",
+                                         "961761443",
+                                         "961761569",
+                                         "961761803",
+                                         "961761991",
+                                         "961762163",
+                                         "961762427",
+                                         "961762597",
+                                         "961762819",
+                                         "961762943",
+                                         "961763087",
+                                         "961763249",
+                                         "961763357",
+                                         "961763597",
+                                         "961763819",
+                                         "961764017",
+                                         "961764191",
+                                         "961764283",
+                                         "961764449",
+                                         "961764697",
+                                         "961764829",
+                                         "961765093",
+                                         "961765243",
+                                         "961765373",
+                                         "961765537",
+                                         "961765757"};
 
-        public static BigInteger ModInverse(BigInteger a, BigInteger n)
+        private static BigInteger ModInverse(BigInteger a, BigInteger n)
         {
             BigInteger i = n, v = 0, d = 1;
 
@@ -61,7 +155,11 @@ namespace SecurityManager
             }
 
             v %= n;
-            if (v < 0) v = (v + n) % n;
+            if (v < 0)
+            {
+                v = (v + n) % n;
+            }
+
             return v;
         }
     }

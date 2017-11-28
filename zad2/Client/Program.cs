@@ -31,6 +31,7 @@ namespace Client
 
             Console.WriteLine("Keys generated, press any key to continue.");
             Console.ReadKey(true);
+
             //Alarm a1 = new Alarm() { Message = "ovo je neki alarm", Risk = 4, TimeGenerated = DateTime.Now };
             //Message m1 = new Message(2, 2, 2, a1);
             //BigInteger signature = DigitalSigneture.SignMessage(m1, n, e);
@@ -38,7 +39,7 @@ namespace Client
             //Console.WriteLine(flag);
 
             ////m1.BlockIndex = 5;
-            //flag = DigitalSigneture.VerifySignature(m1, signature, n, d+1);
+            //flag = DigitalSigneture.VerifySignature(m1, signature, n, d + 1);
             //Console.WriteLine(flag);
 
             //return;
@@ -58,7 +59,7 @@ namespace Client
                 using (WinAuthClient proxy = new WinAuthClient(binding, new EndpointAddress(new Uri(address))))
                 {
                     Message m = new Message(2, 2, 2, a);
-                    proxy.SetAlarm(m, DigitalSigneture.SignMessage(m, n, e));
+                    proxy.SetAlarm(m, DigitalSignature.SignMessage(m, n, e));
                 }
             }
             else
@@ -76,7 +77,7 @@ namespace Client
                 {
                     object privateKey = new object(); //!!!!!!!!!!!!!!!!!!!!!
                     Message m = new Message(2, 2, 2, a);
-                    proxy.SetAlarm(m, DigitalSigneture.SignMessage(m, n, e));
+                    proxy.SetAlarm(m, DigitalSignature.SignMessage(m, n, e));
                     //proxy.printSmth();
                     //Console.WriteLine("TestCommunication() finished. Press <enter> to continue ...");
                     //Console.ReadLine();
