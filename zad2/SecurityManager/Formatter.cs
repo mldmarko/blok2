@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SecurityManager
 {
+    //Formatira imena grupa(skracuje nazive)
     public class Formatter
     {
         public static string ParseName(string winLogonName)

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    //Definise i vraca tipove poruka koje je moguce generisati
     public enum AlarmMessageTypes
     {
         CodeGreen = 0,

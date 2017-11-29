@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace SecurityManager
 {
+    //Komponenta u okviru koje se kreira bezbednosni kontekst izmedju ucesnika u komunikaciji
+    //Metoda Evaluate koja proverava da li korisnik ima sve potrebno za autorizaciju(identitet,pricnipal)
     public class CustomAuthorizationPolicy : IAuthorizationPolicy
     {
         private string id;

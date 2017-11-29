@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace SecurityManager
 {
+    //Definise i vraca tipove dogadjaja koje je moguce logovati
+    //Tipovi dogadjaja su definisani u AuditEventTypes.resx resursnom fajlu
     public enum AuditEventTypes
     {
         UserAuthenticationSuccess = 0,
@@ -16,8 +18,6 @@ namespace SecurityManager
         UserAuthenticationFailed = 3
     }
 
-    //Definise i vraca tipove dogadjaja koje je moguce logovati
-    //Tipovi dogadjaja su definisani u AuditEventTypes.resx resursnom fajlu
     public class AuditEvents
     {
         private static ResourceManager resourceManager = null;

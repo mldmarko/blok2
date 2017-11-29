@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SecurityManager
 {
+    //GetPermissions metoda na osnovu imena grupe proverava u .xml fajlu koje permisije ima pripadnik te grupe
     public enum Permissions
     {
         SetAlarm = 0,

@@ -14,6 +14,8 @@ namespace SecurityManager
      *      Audit.AuthorizationSuccess(principal.Identity.Name, OperationContext.Current.IncomingMessageHeaders.Action);
      * 
      * */
+     //Klasa omogucuje upis razlicitih bezbednosnih dogadjaja u WindowsEventLog
+     //Skup bezbednosnih dogadjaja definisan je enumeracijom AuditEventTypes a string je dat u resursnom fajlu AuditEventsFile
     public class Audit : IDisposable
     {
 

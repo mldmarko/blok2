@@ -11,6 +11,10 @@ using System.Threading.Tasks;
 
 namespace SecurityManager
 {
+    //Digitalni potpis omogucuje integritet i autenticnost poruke
+    //SignMessage potpisuje poruku (enkriptuje)
+    //VerifySingature proverava integritet poruke tako sto uporedjuje hash-ove dobijene na obe strane komunikacije
+    //GetHash generise poseban(jedinstven) hash za svaku poruku
     public class DigitalSignature
     {
         public static BigInteger SignMessage(Message message, BigInteger n, BigInteger e)

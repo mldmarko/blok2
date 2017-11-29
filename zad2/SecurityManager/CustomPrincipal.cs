@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace SecurityManager
 {
+    //Enkapsulira podatke o ovlascenjima autentifikovanog korisnika
+    //Metoda IsInRole proverava da li clanovi grupe(role) imaju ovlascenja za izvrsavanje
     public class CustomPrincipal : IPrincipal, IDisposable
     {
         private WindowsIdentity identity = null;

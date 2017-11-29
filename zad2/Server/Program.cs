@@ -52,6 +52,7 @@ namespace Server
             host2.Close();
         }
 
+        //Metoda koja se poziva svakih 30 sekundi i upisuje poruku o alarmu u tekstualni fajl
         static void Read()
         {
             while (true)

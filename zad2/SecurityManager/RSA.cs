@@ -3,6 +3,8 @@ using System.Numerics;
 
 namespace SecurityManager
 {
+    //RSA algoritam koji koristi mnozenje prostih brojeva i prosiren euklidov algoritam za dobijanje javnog i tajnog kljuca
+    //Zasniva se na racunskoj slozenosti faktorisanja velikih brojeva
     public class RSA
     {
         public static void GenerateKeys(out BigInteger n, out BigInteger e, out BigInteger d)

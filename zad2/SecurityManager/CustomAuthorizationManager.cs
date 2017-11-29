@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace SecurityManager
 {
+    //Komponenta koja opisuje mehanizam autorizacija WCF servisa
+    //Metoda CheckAccessCore proverava autorizaciju korisnika, da li korisnik ima pravo izvrsavanja funkcije 
     public class CustomAuthorizationManager : ServiceAuthorizationManager
     {
         protected override bool CheckAccessCore(OperationContext operationContext)
